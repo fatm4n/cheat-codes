@@ -1,0 +1,23 @@
+#sort fiile contents
+perl -we 'print sort <>' input.txt > output.txt
+
+#inplace file substitution
+perl -pi -e 's/PATTERN/REPLACE/g' input.txt
+
+#automaticlly place escape characters in funky line (quotemeta)
+perl -nE 'print quotemeta($_)' input.txt
+
+#counts the number of quotation marks in each line
+perl -ne '$cnt = tr/"//;print "$cnt\n"' input.txt
+
+#print the third line
+perl -ne 'print if $. == 3' input.txt
+
+#print filename line number and line of matched pattern
+perl -ne 'print ("$ARGV\n", "$. ", "$_") if m/PATTERN/i'
+
+#split & preserve on digits into @F print format for vk.strm_2_http
+perl -F'(\d+)' -anE 'print "https://vk.com/video-$F[1]_$F[3]"' *.strm
+
+#perl one-liner into script
+perl -MO=Deparse -pi -e 's/PATTERN/REPLACE/g' input.txt

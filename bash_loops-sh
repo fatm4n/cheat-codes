@@ -1,0 +1,27 @@
+#!/bin/bash
+# txt file feed mass copy
+# mkdir ~/desktop/test
+while read line
+do
+        #scp one file at a time to your other server
+        ssh libre "rm /storage/porn/$line" ;
+	echo "$line" ;
+done < /Users/willyt/Desktop/input.txt
+
+<<comm
+#removing first characters off of files
+ for x in * ; do
+ #first echo is for testing remove when ready
+ mv $x `echo $x | cut -c 14-` ;
+ done
+# list full file path
+ls -d "$PWD"/* > listOfFiles.list
+
+#remove odd filenames
+while read line
+do
+    mv "$line" "`echo $line | sed 's/.mp4//'`"
+done < /Users/willyt/Desktop/input.txt
+
+echo "Launched with $1"
+comm
